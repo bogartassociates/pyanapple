@@ -1,5 +1,4 @@
-#push to sqs
-#use boto config to set api keys
+#push to sqs. use boto config to set api keys
 
 import os, time, random, boto, shutil, json
 from boto import sqs
