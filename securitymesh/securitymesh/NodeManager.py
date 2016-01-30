@@ -11,13 +11,12 @@ class NodeManager:
     def leave(self, node):
         self.nodes.remove(node)
 
-    def cluster(self, pretty):
-        if pretty == True:
+    def cluster(self, detail=False):
+        if detail == True:
             for node in self.nodes:
                 print(node.details)
         else:
-            nodes
-            for node in self.nodes:
-                nodes.append(node)
-            return nodes
-
+            stats = {}
+            stats['nodes'] = len(self.nodes)
+            stats['name'] = self.name
+            return stats

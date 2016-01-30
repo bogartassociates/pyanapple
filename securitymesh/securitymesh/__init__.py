@@ -1,6 +1,6 @@
 from .NodeManager import *
 from .Node import *
-#from .tests import *
+from .test import *
 
 
 
