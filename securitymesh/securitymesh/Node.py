@@ -1,5 +1,6 @@
 import paramiko
 
+
 class Node:
 
     def __init__(self, ip, user, password, name):
@@ -8,20 +9,23 @@ class Node:
         self.details['user'] = user
         self.details['password'] = password
         self.details['name'] = name
+        self.ssh = paramiko.SSHClient()
+        self.sftp = None
 
     def connect(self):
         # on success, connection=active, else connection=failed
-        ssh = paramike.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(self.details['ip'],
-                    username=self.details['user'],
-                    password=self.details['password'])
-        self.ssh = ssh
-        self.sftp = ssh.open_sftp()
+        self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        self.ssh.connect(
+                        self.details['ip'],
+                        username=self.details['user'],
+                        password=self.details['password']
+                        )
+
+        self.sftp = self.ssh.open_sftp()
         self.details['connection'] = 'Active'
 
     def disconnect(self):
-        #on success, connection=inactive, else connection=failed
+        # on success, connection=inactive, else connection=failed
         self.sftp.close()
         self.ssh.close()
         self.details['connection'] = 'Inactive'
@@ -29,12 +33,12 @@ class Node:
 
     def destruct(self, key):
         if key == '__DESTRUCT__':
-            #blow up the node
-            #rm /data
-            #dd if=/dev/urandom of=/dev/sda bs=1000k
+            # blow up the node
+            # rm /data
+            # dd if=/dev/urandom of=/dev/sda bs=1000k
             self.details['destruct'] = 'Signal Sent'
             pass
         else:
-            #reject
+            # reject
             self.details['destruct'] = 'Refused'
             pass
