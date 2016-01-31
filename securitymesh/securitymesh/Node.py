@@ -42,3 +42,4 @@ class Node:
             # reject
             self.details['destruct'] = 'Refused'
             pass
+
