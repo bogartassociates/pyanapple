@@ -8,4 +8,6 @@ def basic():
     smesh.join(node1)
     smesh.join(node2)
     print("created cluster 'smesh'")
+    print(smesh.cluster())
+    print(smesh.cluster(detail=True))
     return smesh

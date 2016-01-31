@@ -5,18 +5,24 @@ class NodeManager:
     def __init__(self, cluster):
         self.name = cluster
 
-    def join(self, node):
-        self.nodes.append(node)
+    def join(self, candidate):
+        if candidate.details['name'] not in set(node['name'] for node in self.cluster(detail=True)):
+            self.nodes.append(candidate)
 
-    def leave(self, node):
-        self.nodes.remove(node)
+    def leave(self, member):
+        for node in self.nodes:
+            if node['name'] == member.details['name']:
+                self.nodes.remove(node)
 
     def cluster(self, detail=False):
         if detail == True:
+            output = []
             for node in self.nodes:
-                print(node.details)
+                output.append(node.details)
+            return output
         else:
             stats = {}
             stats['nodes'] = len(self.nodes)
-            stats['name'] = self.name
+            stats['cluster_name'] = self.name
+            stats['node_names'] = list(set(node['name'] for node in self.cluster(detail=True)))
             return stats

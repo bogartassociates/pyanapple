@@ -1,3 +1,5 @@
+import paramiko
+
 class Node:
 
     def __init__(self, ip, user, password, name):
@@ -8,14 +10,20 @@ class Node:
         self.details['name'] = name
 
     def connect(self):
-        #open ssh connection
         # on success, connection=active, else connection=failed
+        ssh = paramike.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(self.details['ip'],
+                    username=self.details['user'],
+                    password=self.details['password'])
+        self.ssh = ssh
+        self.sftp = ssh.open_sftp()
         self.details['connection'] = 'Active'
-        pass
 
     def disconnect(self):
-        #close ssh connection
         #on success, connection=inactive, else connection=failed
+        self.sftp.close()
+        self.ssh.close()
         self.details['connection'] = 'Inactive'
         pass
 
