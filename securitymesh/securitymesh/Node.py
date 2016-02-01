@@ -5,10 +5,10 @@ class Node:
 
     def __init__(self, ip, user, password, name):
         self.details = {}
-        self.details['ip'] = ip
-        self.details['user'] = user
-        self.details['password'] = password
-        self.details['name'] = name
+        self.details['ip'] = str(ip)
+        self.details['user'] = str(user)
+        self.details['password'] = str(password)
+        self.details['name'] = str(name)
         self.ssh = paramiko.SSHClient()
         self.sftp = None
 
@@ -42,5 +42,3 @@ class Node:
             # reject
             self.details['destruct'] = 'Refused'
             pass
-
-

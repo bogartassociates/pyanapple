@@ -8,4 +8,5 @@ setup(name='securitymesh',
       author_email='jwoodworth@bainova.com',
       license='',
       packages=['securitymesh'],
-      zip_safe=False)
+      zip_safe=False,
+      install_requires=['paramiko', 'boto', 'elasticsearch', 'pykafka', 'six', 'kazoo'])
